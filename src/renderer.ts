@@ -40,7 +40,20 @@ peer.on('open', (id) => {
     console.log(`my id is ${id}`);
 });
 
-peer.on('call', (call) => {
-    navigator.mediaDevices.getUserMedia({video: true}).then((stream) => call.answer(stream));
+peer.on('call', async (call) => {    
+    const media = await navigator.mediaDevices.getUserMedia({video: true})
+    console.log(media)
+    call.answer(media);
+    peer.listAllPeers((peers: any[]) => {
+        console.log(peers);
+      });
+    call.on('stream', (s) => {console.log('got stream', s)})
+    //call.addStream(media);
+
+//     navigator.mediaDevices.getUserMedia({video: true}).then((stream) => 
+//     {call.answer(stream)
+//     console.log("answered");
+// console.log(stream)});
     console.log('got call from ' + call.peer)
+    console.log(call)
 })

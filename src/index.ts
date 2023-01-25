@@ -8,7 +8,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 import { PeerServer } from 'peer';
 const PEERSERVERPORT = 9001;
 const peerServer = PeerServer({ port: PEERSERVERPORT, allow_discovery: true });
-peerServer.on('connection', () => {console.log("conn")})
+peerServer.on('connection', (client) => {console.log(`conn from ${client.getId()}`)})
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
